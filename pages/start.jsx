@@ -1,6 +1,10 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import StartBG from '../image/StartBG.png';
+import { Buns } from './buns';
+import { Flowers } from './flowers';
+import { Coins } from './coins';
+import { ChristmasToys } from './christmas-toys';
 
 const H3 = styled.h3`
 margin: 4% auto;
@@ -12,6 +16,7 @@ const ContainerStart = styled.div`
   margin: 4% auto;
   display: flex;
   justify-content: center;
+  user-select:none;
 `
 
 const BorderBlock = styled.div`
@@ -42,7 +47,7 @@ const ContainerYellowButton = styled.div`
 `
 
 const YellowButton = styled.button`
-  background: #ffd747ad;
+  background: #ffd7488f;
   border-radius: 20px;
   border: none;
   font-weight: 700;
@@ -53,12 +58,18 @@ const YellowButton = styled.button`
   padding: 0 20px;
   cursor: pointer;
   margin: 50px 0;
+  color: #423f458f;
 
   :hover {
     opacity: 1;
-    background: #FFD748;
   }
 `
+
+const ActiveYellowButton = styled.button`
+background: #000000;
+`
+
+
 const Button = styled.button`
   background: #38DF7A;
   box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
@@ -75,6 +86,10 @@ const Button = styled.button`
   border: none;
   cursor: pointer;
   // margin: 52px auto;
+
+  :hover {
+    background: #2ac066;
+  }
 `
 const Slider = styled.input`
   width: 100%;
@@ -156,77 +171,133 @@ export const Start = () => {
     })
   };
 
+  const onClick = e => {
+    console.log(e.target)
+    if (e.target.id == ASCENDING) {
+      e.target.style.background = '#FFD748';
+      e.target.style.color = '#000000';
+      document.getElementById('descending').style.background = '#ffd7488f';
+      document.getElementById('descending').style.color = '#423f458f';
+      setData({
+        ...data,
+        orderOfCalculation: ASCENDING
+      })
+    }
+    if (e.target.id == DESCENDING) {
+      e.target.style.background = '#FFD748';
+      e.target.style.color = '#000000';
+      document.getElementById('ascending').style.background = '#ffd7488f';
+      document.getElementById('ascending').style.color = '#423f458f';
+      setData({
+        ...data,
+        orderOfCalculation: DESCENDING
+      })
+    }
+  };
+
+  function getRandomPage(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  const onSubmitData = e => {
+    const arrPage = [
+      <Buns />,
+      <Flowers />,
+      <Coins />,
+      <ChristmasToys />,
+    ];
+    console.log(arrPage[getRandomPage(1, 4)]);
+    return (
+      <>
+        arrPage[getRandomPage(1, 4)]
+      </>
+    )
+  }
+
   console.log(data);
   return (
     <ContainerStart>
       <BorderBlock>
-          <H3>Количество предметов</H3>
+        <H3>Количество предметов</H3>
 
-          <SlideContainer1>
-            <label for="rangeNumberOfItems">
-              <Ul>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
-                <li>5</li>
-              </Ul>
-            </label>
-            <Slider 
-              type="range" 
-              min="2" 
-              max="5" 
-              value={data.numberOfItems}
-              step="1" 
-              id="rangeNumberOfItems" 
-              list="labelsNumberOfItems"
-              onChange={onChangeNumberOfItems}
-            />
-            {/* <datalist id="labelsNumberOfItems">
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </datalist> */}
-          </SlideContainer1>
+        <SlideContainer1>
+          <label for="rangeNumberOfItems">
+            <Ul>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+              <li>5</li>
+            </Ul>
+          </label>
+          <Slider
+            type="range"
+            min="2"
+            max="5"
+            value={data.numberOfItems}
+            step="1"
+            id="rangeNumberOfItems"
+            list="labelsNumberOfItems"
+            onChange={onChangeNumberOfItems}
+          />
+          <datalist id="labelsNumberOfItems">
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </datalist>
+        </SlideContainer1>
 
-          <h3>Значения</h3>
+        <h3>Значения</h3>
 
-          <SlideContainer2>
-            <label for="rangeValueOfItems">
-              <Ul>
-                <li>A</li>
-                <li>9</li>
-                <li>19</li>
-                <li>50</li>
-                <li>99</li>
-                <li>999</li>
-              </Ul>
-            </label>
-            <Slider 
-              type="range" 
-              value={data.valueOfItems} 
-              step="1" 
-              id="rangeValueOfItems" 
-              list="labelsValueOfItems"
-              onChange={onChangeValueOfItems}
-            />
-            <datalist id="labelsValueOfItems">
-              <option>A</option>
-              <option>9</option>
-              <option>19</option>
-              <option>50</option>
-              <option>99</option>
-              <option>999</option>
-            </datalist>
-          </SlideContainer2>
+        <SlideContainer2>
+          <label for="rangeValueOfItems">
+            <Ul>
+              <li>A</li>
+              <li>9</li>
+              <li>19</li>
+              <li>50</li>
+              <li>99</li>
+              <li>999</li>
+            </Ul>
+          </label>
+          <Slider
+            type="range"
+            value={data.valueOfItems}
+            step="1"
+            id="rangeValueOfItems"
+            list="labelsValueOfItems"
+            onChange={onChangeValueOfItems}
+          />
+          <datalist id="labelsValueOfItems">
+            <option>A</option>
+            <option>9</option>
+            <option>19</option>
+            <option>50</option>
+            <option>99</option>
+            <option>999</option>
+          </datalist>
+        </SlideContainer2>
 
         <ContainerYellowButton>
-          <YellowButton id='ascending'>По возрастанию</YellowButton>
-          <YellowButton id='descending'>По убыванию</YellowButton>
+          <YellowButton
+            id='ascending'
+            onClick={onClick}
+            style={{ background: '#FFD748', color: '#000000' }}
+          >
+            По возрастанию
+          </YellowButton>
+          <YellowButton
+            id='descending'
+            onClick={onClick}
+          >
+            По убыванию
+          </YellowButton>
         </ContainerYellowButton>
-        
+
         <div>
-          <Button>Играть</Button>
+          <Button onClick={onSubmitData} >Играть</Button>
         </div>
       </BorderBlock>
     </ContainerStart>

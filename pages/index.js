@@ -13,6 +13,14 @@ height: 100%;
 `
 
 export default function Home() {
+  const ASCENDING = 'ascending';
+  const DESCENDING = 'descending';
+
+  const data = {
+    numberOfItems: '2',
+    valueOfItems: 'A',
+    orderOfCalculation: ASCENDING,
+  };
   return (
     <Container>
       <Head>
@@ -20,11 +28,11 @@ export default function Home() {
         <meta name="description" content="Order simulator" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Start />
-      {/* <Buns /> */}
-      {/* <Flowers /> */}
-      {/* <Coins /> */}
-      {/* <ChristmasToys /> */}
+      {/* <Start /> */}
+      {/* <Buns data={data} /> */}
+      {/* <Flowers data={data} /> */}
+      {/* <Coins data={data} /> */}
+      {/* <ChristmasToys data={data} /> */}
       {/* <Finish /> */}
     </Container>
   )
